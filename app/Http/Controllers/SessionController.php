@@ -24,7 +24,7 @@ class SessionController extends Controller
         ]);
 
         if (auth()->attempt($attributes)) {
-            redirect()->route('home')->with('success', 'Welcome Back!');
+            to_route('home')->with('success', 'Welcome Back!');
         }
 
         throw ValidationException::withMessages([
@@ -36,6 +36,6 @@ class SessionController extends Controller
     {
         auth()->logout();
 
-        return redirect()->route('home')->with('success', 'Bye bye');
+        return to_route('home')->with('success', 'Bye bye');
     }
 }

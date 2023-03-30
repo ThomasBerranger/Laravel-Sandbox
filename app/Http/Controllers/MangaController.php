@@ -52,6 +52,6 @@ class MangaController extends Controller
     {
         $manga->delete();
 
-        return redirect()->route('home');
+        return to_route('home');
     }
 }

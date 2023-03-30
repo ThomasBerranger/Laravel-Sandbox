@@ -75,7 +75,7 @@ class CharacterController extends Controller
 
         $character->update($attributes);
 
-        return redirect()->route('characters.detail', $character)->with('success', $character->name . '\'s profile updated.');
+        return to_route('characters.detail', $character)->with('success', $character->name . '\'s profile updated.');
     }
 
     /**
@@ -89,6 +89,6 @@ class CharacterController extends Controller
 
         $character->delete();
 
-        return redirect()->route('home');
+        return to_route('home');
     }
 }

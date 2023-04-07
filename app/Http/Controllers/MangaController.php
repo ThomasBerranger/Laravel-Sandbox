@@ -10,14 +10,6 @@ use Illuminate\View\View;
 class MangaController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index(): View
-    {
-        return view('mangas.list', ['mangas' => Manga::all()]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(): RedirectResponse

@@ -58,7 +58,7 @@ class CharacterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCharacterRequest $request)
+    public function update(UpdateCharacterRequest $request): RedirectResponse
     {
         $attributes = $request->all();
         $attributes['super_power'] ??= false;

@@ -9,8 +9,6 @@
                 <div class="relative min-w-full">
                     <h2 class="text-xl text-center font-semibold text-gray-900 mb-3">API access token</h2>
 
-                    {{ dump(auth()->user()->tokenCan('*')) }}
-
                     <table class="w-full text-center my-6">
                         <thead>
                         <tr class="font-light">

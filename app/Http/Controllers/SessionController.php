@@ -8,6 +8,11 @@ use Illuminate\View\View;
 
 class SessionController extends Controller
 {
+    public function show(): View
+    {
+        return view('sessions.show');
+    }
+
     public function create(): View
     {
         return view('sessions.create');

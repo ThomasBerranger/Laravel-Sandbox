@@ -5,18 +5,19 @@ use App\Http\Controllers\MangaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Models\Manga;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /**
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+ * |--------------------------------------------------------------------------
+ * | Web Routes
+ * |--------------------------------------------------------------------------
+ * |
+ * | Here is where you can register web routes for your application. These
+ * | routes are loaded by the RouteServiceProvider and all of them will
+ * | be assigned to the "web" middleware group. Make something great!
+ * |
+ */
 
 Route::controller(CharacterController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -43,7 +44,18 @@ Route::controller(RegisterController::class)->group(function () {
 });
 
 Route::controller(SessionController::class)->group(function () {
+    Route::get('account', 'show')->name('account')->middleware('auth');
     Route::get('login', 'create')->name('login')->middleware('guest');
     Route::post('login', 'store')->name('login')->middleware('guest');
     Route::post('logout', 'destroy')->name('logout')->middleware('auth');
 });
+
+Route::post('/tokens/create', function (Request $request) {
+    $request->validate([
+        'token_name' => 'required'
+    ]);
+
+    $token = $request->user()->createToken($request->token_name, ['character:read']);
+
+    return to_route('account')->with('plainTextToken', $token->plainTextToken);
+})->name('tokens.create')->middleware('auth');

@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\CharacterController;
 use App\Models\Character;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\CharacterController;
 
 /**
 |--------------------------------------------------------------------------
@@ -16,12 +16,13 @@ use App\Http\Controllers\API\CharacterController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/auth-check', function (Request $request) {
+    return 'auth:sanctum working';
 });
+
+Route::redirect('/characters/search', '/api/characters');
+Route::get('/characters/search/{search}', [CharacterController::class, 'search'])->name('characters.search');
 
 Route::get('/characters', function () {
     return Character::all();
-});
-Route::redirect('/characters/search', '/api/characters');
-Route::get('/characters/search/{search}', [CharacterController::class, 'search'])->name('characters.search');
+})->middleware(['auth:sanctum', 'ability:character:read']);

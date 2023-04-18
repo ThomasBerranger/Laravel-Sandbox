@@ -26,3 +26,7 @@ Route::get('/characters/search/{search}', [CharacterController::class, 'search']
 Route::get('/characters', function () {
     return Character::all();
 })->middleware(['auth:sanctum', 'ability:character:read']);
+
+Route::patch('/characters/{character}', function (Character $character) {
+    return $character->name . ' edited !';
+})->middleware(['auth:sanctum', 'ability:character:write']);

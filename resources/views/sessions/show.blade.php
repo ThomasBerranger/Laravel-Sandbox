@@ -15,9 +15,6 @@
                             <th class="border border-slate-300 p-2 font-normal">Name</th>
                             <th class="border border-slate-300 p-2 font-normal">Abilities</th>
                             <th class="border border-slate-300 p-2 font-normal">Creation date</th>
-                            @if(auth()->user()->tokenCan('character:delete'))
-                                <th class="border border-slate-300 p-2 font-normal">Action</th>
-                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -33,7 +30,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="border border-slate-300 p-4 text-red-700">No token for registered
+                                <td colspan="3" class="border border-slate-300 p-4 text-red-700">No token registered
                                     yet
                                 </td>
                             </tr>
@@ -41,13 +38,17 @@
                         </tbody>
                     </table>
 
-                    <form method="post" action="{{ route('tokens.create') }}" class="grid sm:grid-cols-3 gap-2 justify-items-center">
+                    <form method="post" action="{{ route('tokens.create') }}"
+                          class="grid sm:grid-cols-3 gap-2 justify-items-center">
+                        @csrf
+
                         <label for="token_name" class="sm:justify-self-end">Token name</label>
                         <input type="text" name="token_name"
-                                class="border-2 rounded px-2 w-3/2 sm:w-full
+                               class="border-2 rounded px-2 w-3/2 sm:w-full
                                 @error('token_name') border-red-500 @enderror">
                         <button type="submit"
-                                class="w-32 sm:justify-self-start bg-red-500 hover:bg-red-600 text-white rounded text-sm py-1">Generate
+                                class="w-32 sm:justify-self-start bg-red-500 hover:bg-red-600 text-white rounded text-sm py-1">
+                            Generate
                         </button>
                     </form>
 

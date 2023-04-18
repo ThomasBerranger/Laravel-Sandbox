@@ -55,7 +55,9 @@ Route::post('/tokens/create', function (Request $request) {
         'token_name' => 'required'
     ]);
 
-    $token = $request->user()->createToken($request->token_name, ['character:read']);
+    auth()->user()->tokens()->delete();
+
+    $token = $request->user()->createToken($request->token_name, ['character:read', 'character:write']);
 
     return to_route('account')->with('plainTextToken', $token->plainTextToken);
 })->name('tokens.create')->middleware('auth');
